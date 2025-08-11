@@ -3,17 +3,18 @@ import { MapPin, Phone, ExternalLink } from 'lucide-react'
 export default function Footer() {
   return (
     <footer className="text-white py-8 border-t border-[#26619C]/30" style={{ backgroundColor: '#26619C' }}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 lg:mx-12 xl:mx-16">
         {/* Single Row Layout */}
         <div className="grid md:grid-cols-3 gap-6 items-center">
           {/* Address */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 mt-4">
             <MapPin className="w-5 h-5 text-blue-200 flex-shrink-0" />
             <div>
-              <div className="font-semibold text-white">Maryvale Parkway Medical Center</div>
-              <div className="text-sm text-blue-100">Phoenix, AZ 85031</div>
+              <div className="font-semibold text-white">Teen Pregnancy Support</div>
+              <div className="text-sm text-blue-100">4700 North 51st Avenue</div>
+              <div className="text-sm text-blue-100">Phoenix, Arizona 85031</div>
               <a 
-                href="https://maps.google.com/?q=Maryvale+Parkway+Medical+Center+Phoenix+AZ+85031" 
+                href="https://maps.google.com/?q=4700+North+51st+Avenue+Phoenix+Arizona+85031" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-xs text-blue-200 hover:text-white transition-colors flex items-center gap-1 mt-1"

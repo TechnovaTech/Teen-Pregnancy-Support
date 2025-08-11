@@ -29,31 +29,31 @@ export default function InfoCards() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
-    const observers = cardRefs.current.map((ref, index) => {
-      if (!ref) return null
-      
-      const observer = new IntersectionObserver(
-        ([entry]) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setTimeout(() => {
-              setVisibleCards(prev => {
-                const newState = [...prev]
-                newState[index] = true
-                return newState
-              })
-            }, index * 200)
+            const index = cardRefs.current.indexOf(entry.target as HTMLDivElement)
+            if (index !== -1) {
+              setTimeout(() => {
+                setVisibleCards(prev => {
+                  const newState = [...prev]
+                  newState[index] = true
+                  return newState
+                })
+              }, index * 200)
+            }
           }
-        },
-        { threshold: 0.1 }
-      )
-      
-      observer.observe(ref)
-      return observer
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    cardRefs.current.forEach(ref => {
+      if (ref) observer.observe(ref)
     })
 
-    return () => {
-      observers.forEach(observer => observer?.disconnect())
-    }
+    return () => observer.disconnect()
   }, [])
 
   return (
@@ -73,14 +73,14 @@ export default function InfoCards() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {cards.map((card, index) => {
             const Icon = card.icon
             return (
               <div
                 key={index}
                 ref={el => cardRefs.current[index] = el}
-                className={`group relative backdrop-blur-sm rounded-3xl p-8 shadow-elegant hover:shadow-modern transition-all duration-500 cursor-pointer border-2 border-gray-200 dark:border-gray-700 hover:border-[#1560BD] dark:hover:border-gray-700 overflow-hidden bg-gradient-to-br from-blue-50/80 via-sky-50/60 to-cyan-50/80 dark:from-gray-800/50 dark:via-gray-700/40 dark:to-gray-800/50 ${
+                className={`group relative backdrop-blur-sm rounded-3xl p-8 shadow-elegant hover:shadow-modern transition-all duration-500 cursor-pointer overflow-hidden bg-gradient-to-br from-blue-50/80 via-sky-50/60 to-cyan-50/80 dark:from-gray-800/50 dark:via-gray-700/40 dark:to-gray-800/50 ${
                   visibleCards[index] 
                     ? 'opacity-100 translate-y-0' 
                     : 'opacity-0 translate-y-8'
@@ -95,11 +95,11 @@ export default function InfoCards() {
                 </div>
                 
                 {/* Content */}
-                <h3 className="relative text-2xl font-normal text-card dark:text-gray-300 mb-4 group-hover:text-[#1560BD] dark:group-hover:text-gray-300 transition-colors duration-300">
+                <h3 className="relative text-lg sm:text-xl font-normal text-card dark:text-gray-300 mb-3 group-hover:text-[#1560BD] dark:group-hover:text-gray-300 transition-colors duration-300">
                   {card.title}
                 </h3>
                 
-                <p className="relative text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-[#1560BD] dark:group-hover:text-gray-400 transition-colors duration-300">
+                <p className="relative text-sm text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-[#1560BD] dark:group-hover:text-gray-400 transition-colors duration-300">
                   {card.description}
                 </p>
               </div>

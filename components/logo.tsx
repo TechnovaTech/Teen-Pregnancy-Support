@@ -3,7 +3,7 @@ import { Heart, Shield } from 'lucide-react'
 
 export default function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+    <Link href="/" className="flex items-center gap-2 sm:gap-3 group ml-2 sm:ml-4">
       <div className="relative">
         {/* Main Logo Circle - Smaller on mobile */}
         <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl flex items-center justify-center shadow-elegant group-hover:shadow-glow transition-all duration-300 group-hover:scale-105 border border-blue-400/30">
@@ -16,8 +16,8 @@ export default function Logo() {
         </div>
       </div>
       
-      <div className="hidden sm:block">
-        <div className="font-bold text-lg sm:text-xl text-white group-hover:text-blue-200 transition-colors duration-300">
+      <div className="block">
+        <div className="font-bold text-sm sm:text-lg lg:text-xl text-white group-hover:text-blue-200 transition-colors duration-300">
           Teen Support
         </div>
         <div className="text-xs text-blue-100/80 group-hover:text-blue-200 transition-colors duration-300">
